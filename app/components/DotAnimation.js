@@ -10,6 +10,8 @@ const DotAnimation = () => {
     mountedRef.current = true;
 
     const animate = () => {
+      if (!mountedRef.current) return;
+
       const sequence = Animated.sequence([
         Animated.timing(scale, {
           toValue: 1.27,
@@ -25,6 +27,8 @@ const DotAnimation = () => {
 
       animationRef.current = sequence;
       sequence.start(({ finished }) => {
+        animationRef.current = null;
+
         if (finished && mountedRef.current) {
           animate();
         }
