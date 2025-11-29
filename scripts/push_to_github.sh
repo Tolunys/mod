@@ -7,15 +7,10 @@ MESSAGE=${1:-"Düzeltmeleri uygula"}
 
 echo "[bilgi] Uzak depo: $REMOTE | Branch: $BRANCH"
 
-# Remote gerçekten mevcut mu kontrol et, yoksa REMOTE_URL verilmişse ekle
+# Remote gerçekten mevcut mu kontrol et
 if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
-  if [[ -n "${REMOTE_URL:-}" ]]; then
-    echo "[bilgi] '$REMOTE' remote'u tanımlı değil. REMOTE_URL kullanılarak ekleniyor: $REMOTE_URL"
-    git remote add "$REMOTE" "$REMOTE_URL"
-  else
-    echo "[hata] '$REMOTE' remote'u tanımlı değil. REMOTE_URL ortam değişkeniyle URL vererek otomatik ekleyebilir veya manuel eklemek için 'git remote add $REMOTE <url>' komutunu kullanabilirsiniz."
-    exit 1
-  fi
+  echo "[hata] '$REMOTE' remote'u tanımlı değil. Önce 'git remote add $REMOTE <url>' komutuyla ekleyin."
+  exit 1
 fi
 
 REMOTE_URL=$(git remote get-url "$REMOTE")
