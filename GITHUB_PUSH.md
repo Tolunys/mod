@@ -53,3 +53,4 @@ git push origin <branch-adiniz>
 REMOTE=upstream BRANCH=main ./scripts/push_to_github.sh "Güncelle"
 ```
 Script hata durumunda durur; commit edilecek değişiklik yoksa bilgilendirici bir uyarı basar.
+Remote adı tanımlı değilse çalışmayı keser; uzak branch henüz yoksa rebase adımını atlayarak ilk push için yol açar.
