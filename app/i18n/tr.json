@@ -1,0 +1,29 @@
+{
+  "language": "Türkçe",
+  "select_language": "Dili Seç",
+  "calm_dot_title": "Sakin Nokta",
+  "swipe_to_choose": "Kaydırarak duygu seç",
+  "reset_30s": "30sn Sıfırla",
+  "continue": "Devam",
+  "moods": {
+    "Calm": "Sakin",
+    "Anxious": "Kaygılı",
+    "Sad": "Üzgün",
+    "Angry": "Kızgın",
+    "Stressed": "Stresli",
+    "Tired": "Yorgun",
+    "Happy": "Mutlu"
+  },
+  "therapy": {
+    "Calm": "Nefes al, huzuru hisset.",
+    "Anxious": "Kendini ana getir.",
+    "Sad": "Kendine nazikçe izin ver hissetmeye.",
+    "Angry": "Dur ve içine bak.",
+    "Stressed": "Omuzlarını bırak, rahatla.",
+    "Tired": "Zihnin biraz dinlensin.",
+    "Happy": "İçindeki hafifliği fark et."
+  },
+  "again": "Tekrar",
+  "back": "Geri",
+  "micro_therapy": "Mikro Terapi"
+}

@@ -1,0 +1,29 @@
+{
+  "language": "English",
+  "select_language": "Select Language",
+  "calm_dot_title": "Calm Dot",
+  "swipe_to_choose": "Swipe to choose your mood",
+  "reset_30s": "30s Reset",
+  "continue": "Continue",
+  "moods": {
+    "Calm": "Calm",
+    "Anxious": "Anxious",
+    "Sad": "Sad",
+    "Angry": "Angry",
+    "Stressed": "Stressed",
+    "Tired": "Tired",
+    "Happy": "Happy"
+  },
+  "therapy": {
+    "Calm": "Breathe, feel peace.",
+    "Anxious": "Ground yourself in the present.",
+    "Sad": "Allow yourself to feel, gently.",
+    "Angry": "Pause and look inward.",
+    "Stressed": "Release your shoulders, relax.",
+    "Tired": "Let your mind rest a moment.",
+    "Happy": "Notice the lightness inside you."
+  },
+  "again": "Again",
+  "back": "Back",
+  "micro_therapy": "Micro Therapy"
+}

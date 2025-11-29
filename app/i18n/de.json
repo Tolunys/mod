@@ -1,0 +1,29 @@
+{
+  "language": "Deutsch",
+  "select_language": "Sprache wählen",
+  "calm_dot_title": "Ruhiger Punkt",
+  "swipe_to_choose": "Wische, um deine Stimmung zu wählen",
+  "reset_30s": "30s Zurücksetzen",
+  "continue": "Weiter",
+  "moods": {
+    "Calm": "Ruhig",
+    "Anxious": "Ängstlich",
+    "Sad": "Traurig",
+    "Angry": "Wütend",
+    "Stressed": "Gestresst",
+    "Tired": "Müde",
+    "Happy": "Glücklich"
+  },
+  "therapy": {
+    "Calm": "Atme und spüre den Frieden.",
+    "Anxious": "Komme im Moment an.",
+    "Sad": "Erlaube dir zu fühlen, sanft.",
+    "Angry": "Halte inne und schaue nach innen.",
+    "Stressed": "Lass die Schultern locker, entspann dich.",
+    "Tired": "Gönn deinem Geist eine Pause.",
+    "Happy": "Spüre die Leichtigkeit in dir."
+  },
+  "again": "Nochmal",
+  "back": "Zurück",
+  "micro_therapy": "Mikrotherapie"
+}
