@@ -4,9 +4,10 @@ import { Animated, StyleSheet, View } from 'react-native';
 const DotAnimation = () => {
   const scale = useRef(new Animated.Value(1)).current;
   const animationRef = useRef(null);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    let isMounted = true;
+    mountedRef.current = true;
 
     const animate = () => {
       const sequence = Animated.sequence([
@@ -24,7 +25,7 @@ const DotAnimation = () => {
 
       animationRef.current = sequence;
       sequence.start(({ finished }) => {
-        if (finished && isMounted) {
+        if (finished && mountedRef.current) {
           animate();
         }
       });
@@ -33,9 +34,10 @@ const DotAnimation = () => {
     animate();
 
     return () => {
-      isMounted = false;
+      mountedRef.current = false;
       animationRef.current?.stop();
       scale.stopAnimation();
+      animationRef.current = null;
     };
   }, [scale]);
 

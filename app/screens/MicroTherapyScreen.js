@@ -27,10 +27,14 @@ export default function MicroTherapyScreen({ navigation, route }) {
   const duration = 12000;
 
   const startTimer = useCallback(() => {
+    if (!mountedRef.current) return;
+
     setTimerDone(false);
     anim.setValue(0);
 
     animationRef.current?.stop();
+    anim.stopAnimation();
+    animationRef.current = null;
 
     const animation = Animated.timing(anim, {
       toValue: 1,
@@ -54,6 +58,8 @@ export default function MicroTherapyScreen({ navigation, route }) {
     return () => {
       mountedRef.current = false;
       animationRef.current?.stop();
+      anim.stopAnimation();
+      animationRef.current = null;
     };
   }, [mood, language, startTimer]);
 
