@@ -3,10 +3,16 @@ import { Animated, StyleSheet, View } from 'react-native';
 
 const DotAnimation = () => {
   const scale = useRef(new Animated.Value(1)).current;
+  const animationRef = useRef(null);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
+    mountedRef.current = true;
+
     const animate = () => {
-      Animated.sequence([
+      if (!mountedRef.current) return;
+
+      const sequence = Animated.sequence([
         Animated.timing(scale, {
           toValue: 1.27,
           duration: 4000,
@@ -16,10 +22,27 @@ const DotAnimation = () => {
           toValue: 1.0,
           duration: 4000,
           useNativeDriver: true,
-        })
-      ]).start(() => animate());
+        }),
+      ]);
+
+      animationRef.current = sequence;
+      sequence.start(({ finished }) => {
+        animationRef.current = null;
+
+        if (finished && mountedRef.current) {
+          animate();
+        }
+      });
     };
+
     animate();
+
+    return () => {
+      mountedRef.current = false;
+      animationRef.current?.stop();
+      scale.stopAnimation();
+      animationRef.current = null;
+    };
   }, [scale]);
 
   return (
