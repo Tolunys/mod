@@ -42,3 +42,14 @@ git push origin <branch-adiniz>
 - Başlık ve açıklamayı doldurup değişiklikleri inceleyin, ardından PR'ı oluşturun.
 
 İyi çalışmalar!
+
+## 8) Tek komutla gönderim için script
+`scripts/push_to_github.sh` dosyası değişiklikleri sahneleyip commit eder, remote/branch ile senkronize eder ve iter. Kullanım:
+```bash
+# Varsayılan remote=origin, branch=aktif branch, mesaj="Düzeltmeleri uygula"
+./scripts/push_to_github.sh "Commit mesajınız"
+
+# Farklı remote veya branch için ortam değişkeni ile
+REMOTE=upstream BRANCH=main ./scripts/push_to_github.sh "Güncelle"
+```
+Script hata durumunda durur; commit edilecek değişiklik yoksa bilgilendirici bir uyarı basar.
