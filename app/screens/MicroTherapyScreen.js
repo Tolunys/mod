@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Animated, Easing, SafeAreaView } from 'react-native';
 import { LanguageContext } from '../context/LanguageContext';
 import { MoodContext } from '../context/MoodContext';
@@ -22,18 +22,48 @@ export default function MicroTherapyScreen({ navigation, route }) {
   const mood = route?.params?.mood || globalMood || 'Calm';
   const [timerDone, setTimerDone] = useState(false);
   const anim = useRef(new Animated.Value(0)).current;
+  const animationRef = useRef(null);
+  const mountedRef = useRef(true);
   const duration = 12000;
 
-  useEffect(() => {
+  const startTimer = useCallback(() => {
+    if (!mountedRef.current) return;
+
+    animationRef.current?.stop();
+    anim.stopAnimation();
+    animationRef.current = null;
+
     setTimerDone(false);
     anim.setValue(0);
-    Animated.timing(anim, {
+
+    const animation = Animated.timing(anim, {
       toValue: 1,
       duration,
       useNativeDriver: false,
       easing: Easing.linear,
-    }).start(() => setTimerDone(true));
-  }, [mood, language]);
+    });
+
+    animationRef.current = animation;
+    animation.start(({ finished }) => {
+      animationRef.current = null;
+
+      if (finished && mountedRef.current) {
+        setTimerDone(true);
+      }
+    });
+  }, [anim, duration]);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    startTimer();
+
+    return () => {
+      mountedRef.current = false;
+      animationRef.current?.stop();
+      animationRef.current = null;
+      anim.stopAnimation();
+    };
+  }, [mood, language, startTimer]);
 
   const circleInterpolation = anim.interpolate({
     inputRange: [0, 1],
@@ -67,14 +97,7 @@ export default function MicroTherapyScreen({ navigation, route }) {
             style={[styles.btn, { opacity: timerDone ? 1 : 0.55 }]}
             onPress={() => {
               if (timerDone) {
-                setTimerDone(false);
-                anim.setValue(0);
-                Animated.timing(anim, {
-                  toValue: 1,
-                  duration,
-                  useNativeDriver: false,
-                  easing: Easing.linear,
-                }).start(() => setTimerDone(true));
+                startTimer();
               }
             }}
             disabled={!timerDone}
