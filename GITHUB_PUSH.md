@@ -1,6 +1,6 @@
 # Düzeltmeleri GitHub'a Yükleme Rehberi
 
-Aşağıdaki adımlar, yereldeki bu projedeki düzeltmeleri GitHub'daki uzak depoya göndermenize yardımcı olur.
+Aşağıdaki adımlar, yereldeki bu projedeki düzeltmeleri GitHub'daki uzak depoya göndermenize yardımcı olur. Henüz bir uzak depo eklemediyseniz veya push yapmadıysanız, değişiklikler GitHub'da görünmez; önce remote ekleyip push işlemini tamamlamanız gerekir.
 
 ## 1) Hazırlık
 - Bilgisayarınızda Git kurulmuş olmalı ve GitHub hesabınıza erişiminiz bulunmalı.
@@ -54,3 +54,10 @@ REMOTE=upstream BRANCH=main ./scripts/push_to_github.sh "Güncelle"
 ```
 Script hata durumunda durur; commit edilecek değişiklik yoksa bilgilendirici bir uyarı basar.
 Remote adı tanımlı değilse çalışmayı keser; uzak branch henüz yoksa rebase adımını atlayarak ilk push için yol açar.
+Sahnelenecek değişiklik yoksa uyarı verip çıkış yapar.
+
+## 9) Gönderimin GitHub'da göründüğünü nasıl doğrularım?
+- `git remote -v` komutuyla hangi URL'ye push yaptığınızı kontrol edin.
+- Bu komut hiç çıktı vermiyorsa henüz bir remote eklenmemiş demektir ve GitHub'da hiçbir şey görünmez; önce 4. adımdaki gibi remotu ekleyip push edin.
+- `git fetch --all` ile bilgileri tazeleyip ardından `git log --oneline --decorate --graph -5` çalıştırarak son commit'lerinizi görün.
+- GitHub web arayüzünde ilgili branch'ı açıp commit mesajınızın listede yer aldığını doğrulayın.

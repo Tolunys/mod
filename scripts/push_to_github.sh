@@ -13,11 +13,19 @@ if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
   exit 1
 fi
 
+REMOTE_URL=$(git remote get-url "$REMOTE")
+echo "[bilgi] $REMOTE remote adresi: $REMOTE_URL"
+
 git status --short
 
 git add -A
 
-git commit -m "$MESSAGE" || echo "[uyarı] Commit atlanıyor: kaydedilecek değişiklik yok."
+if git diff --cached --quiet; then
+  echo "[uyarı] Commit/push atlanıyor: kaydedilecek değişiklik yok."
+  exit 0
+fi
+
+git commit -m "$MESSAGE"
 
 if git ls-remote --exit-code "$REMOTE" "$BRANCH" >/dev/null 2>&1; then
   git pull --rebase "$REMOTE" "$BRANCH"
