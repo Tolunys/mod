@@ -51,12 +51,6 @@ git push origin <branch-adiniz>
 
 # Farklı remote veya branch için ortam değişkeni ile
 REMOTE=upstream BRANCH=main ./scripts/push_to_github.sh "Güncelle"
-
-# Remote tanımlı değilse URL vererek otomatik eklemek için
-REMOTE=origin REMOTE_URL=https://github.com/Tolunys/calm-dotapp.git ./scripts/push_to_github.sh "Düzeltmeleri uygula"
-
-# Aynı işlemi ortam değişkensiz bayraklarla yapmak için
-./scripts/push_to_github.sh --remote origin --remote-url https://github.com/Tolunys/calm-dotapp.git "Düzeltmeleri uygula"
 ```
 Script hata durumunda durur; commit edilecek değişiklik yoksa bilgilendirici bir uyarı basar.
 Remote adı tanımlı değilse çalışmayı keser; uzak branch henüz yoksa rebase adımını atlayarak ilk push için yol açar.

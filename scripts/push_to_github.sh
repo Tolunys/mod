@@ -3,50 +3,14 @@ set -euo pipefail
 
 REMOTE=${REMOTE:-origin}
 BRANCH=${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
-MESSAGE="Düzeltmeleri uygula"
-REMOTE_URL=${REMOTE_URL:-}
-
-# Argümanlar: isteğe bağlı bayraklar + commit mesajı
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --remote-url)
-      REMOTE_URL="$2"
-      shift 2
-      ;;
-    --remote)
-      REMOTE="$2"
-      shift 2
-      ;;
-    --branch)
-      BRANCH="$2"
-      shift 2
-      ;;
-    *)
-      MESSAGE="$1"
-      shift 1
-      ;;
-  esac
-done
-
-# Yanlışlıkla commit mesajı yerine URL verilmişse REMOTE_URL olarak ele al
-if [[ -z "$REMOTE_URL" ]]; then
-  if [[ "$MESSAGE" =~ ^https?:// || "$MESSAGE" =~ ^git@ ]]; then
-    REMOTE_URL="$MESSAGE"
-    MESSAGE="Düzeltmeleri uygula"
-  fi
-fi
+MESSAGE=${1:-"Düzeltmeleri uygula"}
 
 echo "[bilgi] Uzak depo: $REMOTE | Branch: $BRANCH"
 
-# Remote gerçekten mevcut mu kontrol et, yoksa REMOTE_URL verilmişse ekle
+# Remote gerçekten mevcut mu kontrol et
 if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
-  if [[ -n "${REMOTE_URL:-}" ]]; then
-    echo "[bilgi] '$REMOTE' remote'u tanımlı değil. REMOTE_URL kullanılarak ekleniyor: $REMOTE_URL"
-    git remote add "$REMOTE" "$REMOTE_URL"
-  else
-    echo "[hata] '$REMOTE' remote'u tanımlı değil. REMOTE_URL ortam değişkeniyle URL vererek otomatik ekleyebilir veya manuel eklemek için 'git remote add $REMOTE <url>' komutunu kullanabilirsiniz."
-    exit 1
-  fi
+  echo "[hata] '$REMOTE' remote'u tanımlı değil. Önce 'git remote add $REMOTE <url>' komutuyla ekleyin."
+  exit 1
 fi
 
 REMOTE_URL=$(git remote get-url "$REMOTE")
